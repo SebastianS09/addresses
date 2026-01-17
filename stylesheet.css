@@ -1,6 +1,17 @@
 /* style.css */
 
-/* Body and general layout */
+/* ======================
+   Base / Reset helpers
+====================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* ======================
+   Body and layout
+====================== */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #ffe0f0, #e0f7ff);
@@ -9,39 +20,53 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    padding: 16px; /* space on mobile edges */
 }
 
-/* Form container */
+/* ======================
+   Form container
+====================== */
 form#gform {
     background: white;
-    padding: 30px 40px;
-    border-radius: 15px;
+    padding: 32px;
+    border-radius: 16px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    width: 350px;
+
+    /* Responsive width */
+    width: 100%;
+    max-width: 420px;
 }
 
+/* ======================
+   Headings & text
+====================== */
 h1 {
     text-align: center;
     color: #333;
+    font-size: 1.6rem;
+    margin-bottom: 8px;
 }
 
 p.intro {
     text-align: center;
     color: #666;
-    font-size: 0.9em;
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 20px;
 }
 
-/* Inputs and select */
+/* ======================
+   Inputs & select
+====================== */
 input,
 select,
 gmpx-place-picker {
     width: 100%;
-    padding: 10px 12px;
-    margin: 8px 0 16px 0;
+    padding: 14px 14px; /* bigger tap area */
+    margin: 10px 0 18px 0;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1em;
-    box-sizing: border-box;
+    border-radius: 10px;
+    font-size: 1rem;
     transition: 0.3s;
 }
 
@@ -53,48 +78,76 @@ gmpx-place-picker:focus {
     box-shadow: 0 0 5px rgba(255, 126, 185, 0.5);
 }
 
-/* Buttons */
+/* ======================
+   Labels
+====================== */
+label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+/* ======================
+   Buttons
+====================== */
 button {
     background: linear-gradient(90deg, #ff7eb9, #ff65a3);
     color: white;
     font-weight: bold;
-    padding: 12px;
+    padding: 16px; /* easier to tap */
     width: 100%;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
+    font-size: 1.05rem;
     transition: 0.3s;
-    margin-top: 8px;
+    margin-top: 12px;
 }
 
 button:hover {
     background: linear-gradient(90deg, #ff65a3, #ff3f87);
 }
 
-/* Labels */
-label {
-    font-weight: bold;
-    color: #333;
-}
-
-/* Address picker box */
+/* ======================
+   Address picker box
+====================== */
 #place-picker-box {
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
-/* Confirmation message */
+/* ======================
+   Confirmation message
+====================== */
 #confirmation {
     display: none;
     text-align: center;
     color: #ff3f87;
     font-weight: bold;
-    margin-top: 15px;
+    margin-top: 16px;
+    font-size: 1rem;
 }
 
 .fun-note {
     text-align: center;
-    font-size: 0.8em;
+    font-size: 0.85rem;
     color: #999;
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
+/* ======================
+   Larger screens (desktop)
+====================== */
+@media (min-width: 768px) {
+    form#gform {
+        padding: 40px;
+        max-width: 460px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    p.intro {
+        font-size: 1.05rem;
+    }
+}

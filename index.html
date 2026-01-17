@@ -13,8 +13,8 @@
     <form id="gform" action="https://docs.google.com/forms/u/0/d/1huiEHRs2odB-Q7Ng15B7OiOTxKvyeaXpF93vLi8xdhA/formResponse" method="POST" target="_self">
 
         <h1>Les addresses !</h1>
-        <p class="intro">Des surprises vous attendent, envoyez nous votre contact! 🌟</p>
-        <p class="intro">Surprises await, send us your details 🌟</p>
+        <p class="intro">Envoyez nous votre contact pour une surprise postale ! 🌟</p>
+        <p class="intro">Send us your details for a postal surprise 🌟</p>
 
         <input name="entry.1573920476" placeholder="Prénom / Name" required>
         <input name="entry.1883987193" placeholder="Nom / Surname" required>
@@ -64,12 +64,14 @@
 
     <script>
         const form = document.getElementById('gform');
+        const consentSelect = document.getElementById('consent');
 
         form.addEventListener('submit', function(e) {
             e.preventDefault(); // prevent default form submission and redirect
 
             // Create a FormData object from the form
             const formData = new FormData(form);
+            const consentValue = consentSelect.value;
 
             // Send it using fetch
             fetch(form.action, {
@@ -78,7 +80,11 @@
                 body: formData
             })
             .then(() => {
-                alert('Form submitted successfully! 🎉'); // optional confirmation
+                if (consentValue === 'Oui') {
+                    alert('Merci ! À très vite 🐣');
+                } else if (consentValue === 'Non') {
+                    alert('Pas de consentement :( Dommage Fromage 🧀');
+                }
                 form.reset(); // clear the form
             })
             .catch((error) => {
