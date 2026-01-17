@@ -31,6 +31,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Inject Google Maps API key
+        run: |
+          sed -i "s|MAPS_API_KEY|${{ secrets.MAPS_API_KEY }}|g" index.html
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
