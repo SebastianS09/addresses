@@ -35,70 +35,22 @@
         <button type="submit">Submit</button>
     </form>
 
+</body>
+
 <script>
-  const apiLoader = document.getElementById("api-loader");
+  const placePicker = document.querySelector('gmpx-place-picker');
+  const confirmBtn = document.getElementById('confirm-address');
+  const hiddenAddressInput = document.getElementById('address-hidden');
 
-  apiLoader.addEventListener("load", () => {
-    // Now the component DEFINITELY exists
-    const picker = document.querySelector("gmpx-place-picker");
-    const confirmBtn = document.getElementById("confirm-address");
-    const hiddenAddress = document.getElementById("address-hidden");
-    const status = document.getElementById("address-status");
+  confirmBtn.addEventListener('click', () => {
+    const place = placePicker.value;
 
-    if (!picker) {
-      console.error("Place picker still not found");
-      return;
+    if (place && place.formattedAddress) {
+      hiddenAddressInput.value = place.formattedAddress;
+    } else {
+      alert('Please select an address from the suggestions.');
     }
-
-    let selectedPlace = null;
-    let addressConfirmed = false;
-
-    picker.addEventListener("gmpx-placechange", (e) => {
-      selectedPlace = e.detail.place;
-      addressConfirmed = false;
-      hiddenAddress.value = "";
-
-      status.textContent = "Address selected, please confirm.";
-      status.className = "";
-    });
-
-    confirmBtn.addEventListener("click", () => {
-      if (!selectedPlace) {
-        status.textContent = "Please select a valid address first.";
-        status.className = "error";
-        return;
-      }
-
-      const address =
-        selectedPlace.formattedAddress ||
-        selectedPlace.displayName?.text;
-
-      if (!address) {
-        status.textContent = "Could not read address.";
-        status.className = "error";
-        return;
-      }
-
-      hiddenAddress.value = address;
-      addressConfirmed = true;
-
-      status.textContent = "✓ Address confirmed";
-      status.className = "ok";
-    });
-
-    document.getElementById("gform").addEventListener("submit", (e) => {
-      if (!addressConfirmed) {
-        e.preventDefault();
-        status.textContent =
-          "Please confirm your address before submitting.";
-        status.className = "error";
-      }
-    });
   });
 </script>
-
-
-
-</body>
 
 </html>
