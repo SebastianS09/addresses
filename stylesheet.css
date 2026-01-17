@@ -1,0 +1,100 @@
+/* style.css */
+
+/* Body and general layout */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ffe0f0, #e0f7ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Form container */
+form#gform {
+    background: white;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    width: 350px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+p.intro {
+    text-align: center;
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* Inputs and select */
+input,
+select,
+gmpx-place-picker {
+    width: 100%;
+    padding: 10px 12px;
+    margin: 8px 0 16px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+input:focus,
+select:focus,
+gmpx-place-picker:focus {
+    border-color: #ff7eb9;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 126, 185, 0.5);
+}
+
+/* Buttons */
+button {
+    background: linear-gradient(90deg, #ff7eb9, #ff65a3);
+    color: white;
+    font-weight: bold;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 8px;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #ff65a3, #ff3f87);
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Address picker box */
+#place-picker-box {
+    margin-bottom: 16px;
+}
+
+/* Confirmation message */
+#confirmation {
+    display: none;
+    text-align: center;
+    color: #ff3f87;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.fun-note {
+    text-align: center;
+    font-size: 0.8em;
+    color: #999;
+    margin-top: 10px;
+}
+

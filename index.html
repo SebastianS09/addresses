@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Address Form</title>
+    <link rel="stylesheet" href="stylesheet.css">
 
 </head>
 
@@ -11,23 +12,33 @@
 
     <form id="gform" action="https://docs.google.com/forms/u/0/d/1huiEHRs2odB-Q7Ng15B7OiOTxKvyeaXpF93vLi8xdhA/formResponse" method="POST" target="_self">
 
-        <input name="entry.1573920476" placeholder="Name" required><br>
-        <input name="entry.1883987193" placeholder="Surname" required><br>
-        <input name="entry.681709445" type="email" placeholder="Email" required><br>
-        <input name="entry.1269550060" placeholder="Consent" required><br>
+        <h1>Les addresses !</h1>
+        <p class="intro">Des surprises vous attendent, envoyez nous votre contact! 🌟</p>
+        <p class="intro">Surprises await, send us your details 🌟</p>
+
+        <input name="entry.1573920476" placeholder="Prénom / Name" required>
+        <input name="entry.1883987193" placeholder="Nom / Surname" required>
+        <input name="entry.681709445" type="email" placeholder="Courriel / Email" required>
+
+        <label for="consent">J'accepte d'être contacté par la famille Canova Schwarz pour des communications et informations concernant leur vie personnelle, professionnelle et leur bien être général.</label>
+        <select name="entry.1269550060" id="consent" required>
+            <option value="" disabled selected>Select an option</option>
+            <option value="Oui">Oui</option>
+            <option value="Non">Non</option>
+        </select>
 
         <!-- Visible autocomplete field -->
         <script type="module" src="https://ajax.googleapis.com/ajax/libs/@googlemaps/extended-component-library/0.6.11/index.min.js"></script>
         <gmpx-api-loader key="MAPS_API_KEY" solution-channel="GMP_GE_placepicker_v2">
         </gmpx-api-loader>
         <div id="place-picker-box">
+            <label>Votre adresse / Enter your address:</label>
             <div id="place-picker-container">
-                <gmpx-place-picker placeholder="Enter an address"></gmpx-place-picker>
+                <gmpx-place-picker placeholder="Start typing your address..."></gmpx-place-picker>
             </div>
-            <button type="button" id="confirm-address">
-                Use this address
-            </button>
+            <button type="button" id="confirm-address">Confirmer l'adresse / Use this address</button>
         </div>
+
 
         <!-- Address Google Form field -->
         <input name="entry.1707553072" id="address-hidden"><br>
@@ -35,22 +46,49 @@
         <button type="submit">Submit</button>
     </form>
 
+    <script>
+        const placePicker = document.querySelector('gmpx-place-picker');
+        const confirmBtn = document.getElementById('confirm-address');
+        const hiddenAddressInput = document.getElementById('address-hidden');
+
+        confirmBtn.addEventListener('click', () => {
+            const place = placePicker.value;
+
+            if (place && place.formattedAddress) {
+                hiddenAddressInput.value = place.formattedAddress;
+            } else {
+                alert('Please select an address from the suggestions.');
+            }
+        });
+    </script>
+
+    <script>
+        const form = document.getElementById('gform');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // prevent default form submission and redirect
+
+            // Create a FormData object from the form
+            const formData = new FormData(form);
+
+            // Send it using fetch
+            fetch(form.action, {
+                method: 'POST',
+                mode: 'no-cors', // Google Forms doesn't return CORS headers
+                body: formData
+            })
+            .then(() => {
+                alert('Form submitted successfully! 🎉'); // optional confirmation
+                form.reset(); // clear the form
+            })
+            .catch((error) => {
+                console.error('Error submitting form:', error);
+                alert('There was a problem submitting the form.');
+            });
+        });
+    </script>
+
+
 </body>
-
-<script>
-  const placePicker = document.querySelector('gmpx-place-picker');
-  const confirmBtn = document.getElementById('confirm-address');
-  const hiddenAddressInput = document.getElementById('address-hidden');
-
-  confirmBtn.addEventListener('click', () => {
-    const place = placePicker.value;
-
-    if (place && place.formattedAddress) {
-      hiddenAddressInput.value = place.formattedAddress;
-    } else {
-      alert('Please select an address from the suggestions.');
-    }
-  });
-</script>
 
 </html>
