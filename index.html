@@ -36,17 +36,17 @@
     </form>
 
 <script>
-  document.addEventListener("DOMContentLoaded", async () => {
-    // Wait until the custom element is registered
-    await customElements.whenDefined("gmpx-place-picker");
+  const apiLoader = document.getElementById("api-loader");
 
-    const picker = document.getElementById("place-picker");
+  apiLoader.addEventListener("load", () => {
+    // Now the component DEFINITELY exists
+    const picker = document.querySelector("gmpx-place-picker");
     const confirmBtn = document.getElementById("confirm-address");
     const hiddenAddress = document.getElementById("address-hidden");
     const status = document.getElementById("address-status");
 
     if (!picker) {
-      console.error("Place picker not found");
+      console.error("Place picker still not found");
       return;
     }
 
@@ -74,7 +74,7 @@
         selectedPlace.displayName?.text;
 
       if (!address) {
-        status.textContent = "Could not read address. Please reselect.";
+        status.textContent = "Could not read address.";
         status.className = "error";
         return;
       }
