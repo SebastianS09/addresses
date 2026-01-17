@@ -48,10 +48,10 @@
 
     <script>
         const placePicker = document.querySelector('gmpx-place-picker');
-        const confirmBtn = document.getElementById('confirm-address');
+        const confirmAddressBtn = document.getElementById('confirm-address');
         const hiddenAddressInput = document.getElementById('address-hidden');
 
-        confirmBtn.addEventListener('click', () => {
+        confirmAddressBtn.addEventListener('click', () => {
             const place = placePicker.value;
 
             if (place && place.formattedAddress) {
@@ -60,14 +60,9 @@
                 alert('Please select an address from the suggestions.');
             }
         });
-    </script>
 
-    <script>
         const form = document.getElementById('gform');
         const consentSelect = document.getElementById('consent');
-        const placePicker = document.querySelector('gmpx-place-picker');
-        const hiddenAddressInput = document.getElementById('address-hidden');
-        const confirmAddressBtn = document.getElementById('confirm-address');
         const submitBtn = document.getElementById('submit-btn');
 
         // Hide submit initially
