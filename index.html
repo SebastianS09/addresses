@@ -12,7 +12,7 @@
 
     <form id="gform" action="https://docs.google.com/forms/u/0/d/1huiEHRs2odB-Q7Ng15B7OiOTxKvyeaXpF93vLi8xdhA/formResponse" method="POST" target="_self">
 
-        <h1>Les addresses !</h1>
+        <h1>Les adresses !</h1>
         <p class="intro">Envoyez nous votre contact pour une surprise postale ! 🌟</p>
         <p class="intro">Send us your details for a postal surprise 🌟</p>
 
@@ -36,14 +36,14 @@
             <div id="place-picker-container">
                 <gmpx-place-picker placeholder="Start typing your address..."></gmpx-place-picker>
             </div>
-            <button type="button" id="confirm-address">Confirmer l'adresse / Use this address</button>
+            <button type="button" id="confirm-address">Confirmer l'adresse / Use this address <br> ou Sauter la recherche / or skip lookup </button>
         </div>
 
 
         <!-- Address Google Form field -->
         <input name="entry.1707553072" id="address-hidden"><br>
 
-        <button type="submit">Submit</button>
+        <button type="submit" id="submit-btn" style="display:none;">Submit</button>
     </form>
 
     <script>
@@ -65,6 +65,28 @@
     <script>
         const form = document.getElementById('gform');
         const consentSelect = document.getElementById('consent');
+        const placePicker = document.querySelector('gmpx-place-picker');
+        const hiddenAddressInput = document.getElementById('address-hidden');
+        const confirmAddressBtn = document.getElementById('confirm-address');
+        const submitBtn = document.getElementById('submit-btn');
+
+        // Hide submit initially
+        submitBtn.style.display = 'none';
+
+        // Handle address confirmation
+        confirmAddressBtn.addEventListener('click', () => {
+            const place = placePicker.value;
+
+            if (place && place.formattedAddress) {
+                hiddenAddressInput.value = place.formattedAddress;
+
+                // Reveal submit button
+                submitBtn.style.display = 'block';
+
+            } else {
+                alert('Please select an address from the suggestions.');
+            }
+        });
 
         form.addEventListener('submit', function(e) {
             e.preventDefault(); // prevent default form submission and redirect
