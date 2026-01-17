@@ -17,43 +17,59 @@
         <input name="entry.1269550060" placeholder="Consent" required><br>
 
         <!-- Visible autocomplete field -->
-    	<script type="module" src="https://ajax.googleapis.com/ajax/libs/@googlemaps/extended-component-library/0.6.11/index.min.js"></script>
+        <script type="module" src="https://ajax.googleapis.com/ajax/libs/@googlemaps/extended-component-library/0.6.11/index.min.js"></script>
         <gmpx-api-loader key="MAPS_API_KEY" solution-channel="GMP_GE_placepicker_v2">
         </gmpx-api-loader>
         <div id="place-picker-box">
             <div id="place-picker-container">
                 <gmpx-place-picker placeholder="Enter an address"></gmpx-place-picker>
             </div>
+            <button type="button" id="confirm-address">
+                Use this address
+            </button>
         </div>
 
-        <!-- Hidden Google Form field -->
-        <input type="hidden" name="entry.1707553072" id="address-hidden">
+        <!-- Address Google Form field -->
+        <input name="entry.1707553072" id="address-hidden"><br>
 
         <button type="submit">Submit</button>
     </form>
 
     <script>
         const picker = document.getElementById("place-picker");
+        const confirmBtn = document.getElementById("confirm-address");
         const hiddenAddress = document.getElementById("address-hidden");
-        let addressSelected = false;
+        const status = document.getElementById("address-status");
 
-        picker.addEventListener("gmpx-placechange", (event) => {
-            const place = event.detail.place;
+        let selectedPlace = null;
+        let addressConfirmed = false;
 
-            if (!place || !place.formattedAddress) {
-                addressSelected = false;
-                hiddenAddress.value = "";
+        picker.addEventListener("gmpx-placechange", (e) => {
+            selectedPlace = e.detail.place;
+            addressConfirmed = false;
+            hiddenAddress.value = "";
+            status.textContent = "Address selected, please confirm.";
+            status.className = "";
+        });
+
+        confirmBtn.addEventListener("click", () => {
+            if (!selectedPlace || !selectedPlace.formattedAddress) {
+                status.textContent = "Please select a valid address first.";
+                status.className = "error";
                 return;
             }
 
-            hiddenAddress.value = place.formattedAddress;
-            addressSelected = true;
+            hiddenAddress.value = selectedPlace.formattedAddress;
+            addressConfirmed = true;
+            status.textContent = "✓ Address confirmed";
+            status.className = "ok";
         });
 
         document.getElementById("gform").addEventListener("submit", (e) => {
-            if (!addressSelected) {
+            if (!addressConfirmed) {
                 e.preventDefault();
-                alert("Please select an address from the suggestions.");
+                status.textContent = "Please confirm your address before submitting.";
+                status.className = "error";
             }
         });
     </script>
