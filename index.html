@@ -5,9 +5,6 @@
     <meta charset="UTF-8">
     <title>Address Form</title>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places" defer>
-    </script>
-
 </head>
 
 <body>
@@ -20,10 +17,7 @@
         <input name="entry.1269550060" placeholder="Consent" required><br>
 
         <!-- Visible autocomplete field -->
-        <script type="module" src="https://ajax.googleapis.com/ajax/libs/@googlemaps/extended-component-library/0.6.11/index.min.js">
-        </script>
-        <link rel="stylesheet" href="./style.css" />
-
+    	<script type="module" src="https://ajax.googleapis.com/ajax/libs/@googlemaps/extended-component-library/0.6.11/index.min.js"></script>
         <gmpx-api-loader key="MAPS_API_KEY" solution-channel="GMP_GE_placepicker_v2">
         </gmpx-api-loader>
         <div id="place-picker-box">
@@ -37,6 +31,32 @@
 
         <button type="submit">Submit</button>
     </form>
+
+    <script>
+        const picker = document.getElementById("place-picker");
+        const hiddenAddress = document.getElementById("address-hidden");
+        let addressSelected = false;
+
+        picker.addEventListener("gmpx-placechange", (event) => {
+            const place = event.detail.place;
+
+            if (!place || !place.formattedAddress) {
+                addressSelected = false;
+                hiddenAddress.value = "";
+                return;
+            }
+
+            hiddenAddress.value = place.formattedAddress;
+            addressSelected = true;
+        });
+
+        document.getElementById("gform").addEventListener("submit", (e) => {
+            if (!addressSelected) {
+                e.preventDefault();
+                alert("Please select an address from the suggestions.");
+            }
+        });
+    </script>
 
 </body>
 
