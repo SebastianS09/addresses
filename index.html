@@ -56,9 +56,9 @@
 
             if (place && place.formattedAddress) {
                 hiddenAddressInput.value = place.formattedAddress;
-            } else {
-                alert('Please select an address from the suggestions.');
-            }
+            };
+            // Reveal submit button
+            submitBtn.style.display = 'block';
         });
 
         const form = document.getElementById('gform');
@@ -67,21 +67,6 @@
 
         // Hide submit initially
         submitBtn.style.display = 'none';
-
-        // Handle address confirmation
-        confirmAddressBtn.addEventListener('click', () => {
-            const place = placePicker.value;
-
-            if (place && place.formattedAddress) {
-                hiddenAddressInput.value = place.formattedAddress;
-
-                // Reveal submit button
-                submitBtn.style.display = 'block';
-
-            } else {
-                alert('Please select an address from the suggestions.');
-            }
-        });
 
         form.addEventListener('submit', function(e) {
             e.preventDefault(); // prevent default form submission and redirect
