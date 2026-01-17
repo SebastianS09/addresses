@@ -109,6 +109,18 @@ button:hover {
 }
 
 /* ======================
+   Submit button (RED)
+====================== */
+#submit-btn {
+    background: linear-gradient(90deg, #ff4d4d, #e60000);
+}
+
+#submit-btn:hover {
+    background: linear-gradient(90deg, #e60000, #b30000);
+}
+
+
+/* ======================
    Address picker box
 ====================== */
 #place-picker-box {

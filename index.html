@@ -41,7 +41,7 @@
 
 
         <!-- Address Google Form field -->
-        <input name="entry.1707553072" id="address-hidden"><br>
+        <input name="entry.1707553072" placeholder="Adresse / Address" id="address-hidden"><br>
 
         <button type="submit" id="submit-btn" style="display:none;">Submit</button>
     </form>
@@ -50,6 +50,12 @@
         const placePicker = document.querySelector('gmpx-place-picker');
         const confirmAddressBtn = document.getElementById('confirm-address');
         const hiddenAddressInput = document.getElementById('address-hidden');
+        const form = document.getElementById('gform');
+        const consentSelect = document.getElementById('consent');
+        const submitBtn = document.getElementById('submit-btn');
+
+        // Hide submit initially (not active)
+        submitBtn.style.display = 'block';
 
         confirmAddressBtn.addEventListener('click', () => {
             const place = placePicker.value;
@@ -60,13 +66,6 @@
             // Reveal submit button
             submitBtn.style.display = 'block';
         });
-
-        const form = document.getElementById('gform');
-        const consentSelect = document.getElementById('consent');
-        const submitBtn = document.getElementById('submit-btn');
-
-        // Hide submit initially
-        submitBtn.style.display = 'none';
 
         form.addEventListener('submit', function(e) {
             e.preventDefault(); // prevent default form submission and redirect
