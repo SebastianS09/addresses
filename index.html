@@ -3,29 +3,42 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Address Form</title>
     <link rel="stylesheet" href="stylesheet.css">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
     <form id="gform" action="https://docs.google.com/forms/u/0/d/1huiEHRs2odB-Q7Ng15B7OiOTxKvyeaXpF93vLi8xdhA/formResponse" method="POST" target="_self">
 
-        <h1>Les adresses !</h1>
-        <p class="intro">Envoyez nous votre contact pour une surprise postale ! 🌟</p>
-        <p class="intro">Send us your details for a postal surprise 🌟</p>
+        <h1>Les adresses ! 🌟</h1>
+        <p class="intro">Envoyez nous votre contact pour une surprise postale !</p>
+        <p class="intro">Send us your details for a postal surprise!</p>
 
-        <input name="entry.1573920476" placeholder="Prénom / Name" required>
-        <input name="entry.1883987193" placeholder="Nom / Surname" required>
-        <input name="entry.681709445" type="email" placeholder="Courriel / Email" required>
+        <div class="form-group">
+            <input name="entry.1573920476" placeholder="Prénom / Name" required>
+        </div>
 
-        <label for="consent">J'accepte d'être contacté par la famille Canova Schwarz pour des communications et informations concernant leur vie personnelle, professionnelle et leur bien être général.</label>
-        <select name="entry.1269550060" id="consent" required>
-            <option value="" disabled selected>Select an option</option>
-            <option value="Oui">Oui</option>
-            <option value="Non">Non</option>
-        </select>
+        <div class="form-group">
+            <input name="entry.1883987193" placeholder="Nom / Surname" required>
+        </div>
+
+        <div class="form-group">
+            <input name="entry.681709445" type="email" placeholder="Courriel / Email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="consent">J'accepte d'être contacté par la famille Canova Schwarz pour des communications et informations concernant leur vie personnelle, professionnelle et leur bien être général.</label>
+            <select name="entry.1269550060" id="consent" required>
+                <option value="" disabled selected>Select an option</option>
+                <option value="Oui">Oui</option>
+                <option value="Non">Non</option>
+            </select>
+        </div>
 
         <!-- Visible autocomplete field -->
         <script type="module" src="https://ajax.googleapis.com/ajax/libs/@googlemaps/extended-component-library/0.6.11/index.min.js"></script>
@@ -36,14 +49,13 @@
             <div id="place-picker-container">
                 <gmpx-place-picker placeholder="Start typing your address..."></gmpx-place-picker>
             </div>
-            <button type="button" id="confirm-address">Confirmer l'adresse / Use this address <br> ou Sauter la recherche / or skip lookup </button>
+            <button type="button" id="confirm-address">Confirmer l'adresse / Use this address <br><span class="btn-subtext">ou Sauter la recherche / or skip lookup</span></button>
         </div>
-
 
         <!-- Address Google Form field -->
         <input name="entry.1707553072" placeholder="Adresse / Address" id="address-hidden"><br>
 
-        <button type="submit" id="submit-btn" style="display:none;">Submit</button>
+        <button type="submit" id="submit-btn">Envoyer / Submit ✨</button>
     </form>
 
     <script>
@@ -54,17 +66,18 @@
         const consentSelect = document.getElementById('consent');
         const submitBtn = document.getElementById('submit-btn');
 
-        // Hide submit initially (not active)
-        submitBtn.style.display = 'block';
-
         confirmAddressBtn.addEventListener('click', () => {
             const place = placePicker.value;
 
             if (place && place.formattedAddress) {
                 hiddenAddressInput.value = place.formattedAddress;
-            };
-            // Reveal submit button
+            }
+            // Reveal submit button with animation
             submitBtn.style.display = 'block';
+            setTimeout(() => {
+                submitBtn.style.opacity = '1';
+                submitBtn.style.transform = 'translateY(0)';
+            }, 10);
         });
 
         form.addEventListener('submit', function(e) {
@@ -87,6 +100,7 @@
                     alert('Pas de consentement :( Dommage Fromage 🧀');
                 }
                 form.reset(); // clear the form
+                submitBtn.style.display = 'none';
             })
             .catch((error) => {
                 console.error('Error submitting form:', error);
@@ -94,7 +108,6 @@
             });
         });
     </script>
-
 
 </body>
 
