@@ -49,7 +49,7 @@
             <div id="place-picker-container">
                 <gmpx-place-picker placeholder="Start typing your address..."></gmpx-place-picker>
             </div>
-            <button type="button" id="confirm-address">Confirmer l'adresse / Use this address <br><span class="btn-subtext">ou Sauter la recherche / or skip lookup</span></button>
+            <button type="button" id="confirm-address">Confirmer l'adresse / Use this address <br><span class="btn-subtext">ou entrer directement dans le champ ci-dessous / or fill below</span></button>
         </div>
 
         <!-- Address Google Form field -->
@@ -72,12 +72,6 @@
             if (place && place.formattedAddress) {
                 hiddenAddressInput.value = place.formattedAddress;
             }
-            // Reveal submit button with animation
-            submitBtn.style.display = 'block';
-            setTimeout(() => {
-                submitBtn.style.opacity = '1';
-                submitBtn.style.transform = 'translateY(0)';
-            }, 10);
         });
 
         form.addEventListener('submit', function(e) {
@@ -100,7 +94,6 @@
                     alert('Pas de consentement :( Dommage Fromage 🧀');
                 }
                 form.reset(); // clear the form
-                submitBtn.style.display = 'none';
             })
             .catch((error) => {
                 console.error('Error submitting form:', error);

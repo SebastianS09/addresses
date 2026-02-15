@@ -252,9 +252,6 @@ button[type="button"]:active {
     transition: all 0.3s ease;
     box-shadow: var(--shadow-md);
     margin-top: 8px;
-    display: none;
-    opacity: 0;
-    transform: translateY(-10px);
 }
 
 #submit-btn:hover {
